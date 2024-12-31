@@ -1,6 +1,6 @@
 server:
   port: 8001
-  
+
 springdoc:
   swagger-ui:
     path: '/swagger'
@@ -12,8 +12,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306
-    username: root
-    password: 990903
+    username: myuser
+    password: mypassword
   jpa:
     hibernate:
       ddl-auto: update
