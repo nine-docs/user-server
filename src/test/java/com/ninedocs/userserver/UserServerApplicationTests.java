@@ -1,4 +1,4 @@
-package com.gunwoda.userserver;
+package com.ninedocs.userserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

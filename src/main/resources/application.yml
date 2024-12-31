@@ -1,0 +1,25 @@
+server:
+  port: 8001
+  
+springdoc:
+  swagger-ui:
+    path: '/swagger'
+    disable-swagger-default-url: true
+    operations-sorter: 'alpha'
+    tags-sorter: 'alpha'
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306
+    username: root
+    password: 990903
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
