@@ -24,8 +24,17 @@ public class OpenApiConfig {
   @Bean
   public GroupedOpenApi systemGroupedOpenApi() {
     return GroupedOpenApi.builder()
-        .group("(z) System")
+        .group("(a) System")
         .pathsToMatch("/api/v1/system/**")
         .build();
   }
+
+  @Bean
+  public GroupedOpenApi userGroupedOpenApi() {
+    return GroupedOpenApi.builder()
+        .group("(b) user")
+        .pathsToMatch("/api/v1/user/**")
+        .build();
+  }
+
 }
