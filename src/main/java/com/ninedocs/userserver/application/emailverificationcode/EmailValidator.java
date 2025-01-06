@@ -1,4 +1,4 @@
-package com.ninedocs.userserver.application.emailverficationcode;
+package com.ninedocs.userserver.application.emailverificationcode;
 
 import java.util.regex.Pattern;
 

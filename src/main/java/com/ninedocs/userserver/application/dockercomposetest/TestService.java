@@ -18,7 +18,7 @@ public class TestService {
 
   public String save(TestRequest testRequest) {
     User user = User.builder().email(testRequest.getEmail()).password(testRequest.getPassword())
-        .build();
+        .nickname(testRequest.getNickname()).build();
     userRepository.save(user);
     return "Success";
   }

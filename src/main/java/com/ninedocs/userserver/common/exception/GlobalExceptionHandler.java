@@ -1,6 +1,6 @@
-package com.ninedocs.userserver.application.exception;
+package com.ninedocs.userserver.common.exception;
 
-import com.ninedocs.userserver.application.response.ApiResponse;
+import com.ninedocs.userserver.common.response.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

@@ -1,4 +1,4 @@
-package com.ninedocs.userserver.application.response;
+package com.ninedocs.userserver.common.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ public class ApiResponse<T> {
   public static <T> ApiResponse<T> success(T data) {
     return new ApiResponse<>(true, null, data);
   }
-  
+
   public static <T> ApiResponse<T> error(String errorCode) {
     return new ApiResponse<>(false, errorCode, null);
   }

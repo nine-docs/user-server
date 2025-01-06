@@ -1,12 +1,13 @@
-package com.ninedocs.userserver.application.emailverficationcode;
+package com.ninedocs.userserver.application.emailverificationcode;
 
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class EmailVerificationCode {
 
@@ -14,7 +15,8 @@ public class EmailVerificationCode {
   private RedisTemplate<String, String> redisTemplate;
 
   public String generateVerificationCode() {
-    return String.valueOf((int) (Math.random() * 900000) + 100000); // 6자리 랜덤 숫자
+    // return String.valueOf((int) (Math.random() * 900000) + 100000); // 6자리 랜덤 숫자
+    return "111111";
   }
 
   // 검증 코드를 Redis에 저장

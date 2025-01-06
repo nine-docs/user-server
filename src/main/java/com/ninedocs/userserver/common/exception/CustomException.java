@@ -1,4 +1,4 @@
-package com.ninedocs.userserver.application.exception;
+package com.ninedocs.userserver.common.exception;
 
 public abstract class CustomException extends RuntimeException {
 

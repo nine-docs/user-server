@@ -15,4 +15,8 @@ public class TestRequest {
   @Schema(example = "example-password")
   private String password;
 
+  @NotNull
+  @Schema(example = "example-nickname")
+  private String nickname;
+
 }

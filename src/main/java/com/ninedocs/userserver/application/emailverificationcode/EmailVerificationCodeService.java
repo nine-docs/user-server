@@ -1,8 +1,8 @@
-package com.ninedocs.userserver.application.emailverficationcode;
+package com.ninedocs.userserver.application.emailverificationcode;
 
-import com.ninedocs.userserver.application.emailverficationcode.dto.EmailDuplicateCodeRequest;
-import com.ninedocs.userserver.application.emailverficationcode.exception.DuplicateEmailException;
-import com.ninedocs.userserver.application.emailverficationcode.exception.EmailFormatException;
+import com.ninedocs.userserver.application.emailverificationcode.dto.EmailDuplicateCodeRequest;
+import com.ninedocs.userserver.application.emailverificationcode.exception.DuplicateEmailException;
+import com.ninedocs.userserver.application.emailverificationcode.exception.EmailFormatException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
