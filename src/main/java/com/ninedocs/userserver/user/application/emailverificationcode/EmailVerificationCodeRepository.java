@@ -16,7 +16,7 @@ public class EmailVerificationCodeRepository {
   public LocalDateTime saveVerificationCode(String email, String code) {
     LocalDateTime now = LocalDateTime.now();
     LocalDateTime expiredAt = now.plusMinutes(5);
-    redisTemplate.opsForValue().set(email, code, 6, TimeUnit.MINUTES); // 5분 TTL
+    redisTemplate.opsForValue().set("verified-code-" + email, code, 6, TimeUnit.MINUTES); // 5분 TTL
     return expiredAt;
   }
 }
