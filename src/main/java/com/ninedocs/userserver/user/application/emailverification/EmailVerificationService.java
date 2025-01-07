@@ -27,7 +27,7 @@ public class EmailVerificationService {
     // 인증 성공 처리
     LocalDateTime now = LocalDateTime.now();
     LocalDateTime expiredAt = now.plusMinutes(VERIFIED_EXPIRATION);
-    redisService.storeVerifiedCode(email, VERIFIED_EXPIRATION);
+    redisService.storeVerification(email, VERIFIED_EXPIRATION);
 
     // 기존 redis 저장 코드 삭제
     redisService.deleteVerificationCode(email);

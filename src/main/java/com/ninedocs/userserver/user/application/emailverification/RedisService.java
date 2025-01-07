@@ -12,12 +12,12 @@ public class RedisService {
   private final StringRedisTemplate stringRedisTemplate;
 
   public String getVerificationCode(String email) {
-    return stringRedisTemplate.opsForValue().get("verified-code" + email);
+    return stringRedisTemplate.opsForValue().get("verified-code-" + email);
   }
 
-  public void storeVerifiedCode(String email, long verifiedExpiration) {
+  public void storeVerification(String email, long verifiedExpiration) {
     stringRedisTemplate.opsForValue()
-        .set("verified" + email, "verified", verifiedExpiration, TimeUnit.MINUTES);
+        .set("verified-" + email, "verified", verifiedExpiration, TimeUnit.MINUTES);
   }
 
   public void deleteVerificationCode(String email) {
