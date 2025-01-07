@@ -1,7 +1,6 @@
 package com.ninedocs.userserver.common.exception;
 
 import com.ninedocs.userserver.common.presentation.dto.ApiResponse;
-import com.ninedocs.userserver.user.application.emailverificationcode.exception.DuplicateEmailException;
 import com.ninedocs.userserver.user.application.emailverificationcode.exception.EmailFormatException;
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.ninedocs.userserver.user.presentation;
+package com.ninedocs.userserver.common.presentation;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
