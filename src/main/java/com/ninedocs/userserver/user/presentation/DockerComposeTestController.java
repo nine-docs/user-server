@@ -1,9 +1,8 @@
-package com.ninedocs.userserver.presentation;
+package com.ninedocs.userserver.user.presentation;
 
-import com.ninedocs.userserver.application.dockercomposetest.TestService;
-import com.ninedocs.userserver.application.dockercomposetest.dto.TestRequest;
-import com.ninedocs.userserver.application.dockercomposetest.dto.TestResponse;
-import com.ninedocs.userserver.persistence.User;
+import com.ninedocs.userserver.user.application.dockercomposetest.TestService;
+import com.ninedocs.userserver.user.application.dockercomposetest.dto.TestRequest;
+import com.ninedocs.userserver.user.application.dockercomposetest.dto.TestResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

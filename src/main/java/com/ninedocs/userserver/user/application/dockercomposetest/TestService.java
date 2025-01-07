@@ -1,10 +1,9 @@
-package com.ninedocs.userserver.application.dockercomposetest;
+package com.ninedocs.userserver.user.application.dockercomposetest;
 
-import com.ninedocs.userserver.application.dockercomposetest.dto.TestRequest;
-import com.ninedocs.userserver.application.dockercomposetest.dto.TestResponse;
-import com.ninedocs.userserver.persistence.User;
-import com.ninedocs.userserver.persistence.UserRepository;
-import java.util.ArrayList;
+import com.ninedocs.userserver.user.application.dockercomposetest.dto.TestRequest;
+import com.ninedocs.userserver.user.application.dockercomposetest.dto.TestResponse;
+import com.ninedocs.userserver.user.persistence.User;
+import com.ninedocs.userserver.user.persistence.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,7 @@ public class TestService {
 
   public String save(TestRequest testRequest) {
     User user = User.builder().email(testRequest.getEmail()).password(testRequest.getPassword())
-        .build();
+        .nickname(testRequest.getNickname()).build();
     userRepository.save(user);
     return "Success";
   }

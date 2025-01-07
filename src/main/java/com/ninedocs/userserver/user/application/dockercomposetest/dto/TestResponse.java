@@ -1,4 +1,4 @@
-package com.ninedocs.userserver.application.dockercomposetest.dto;
+package com.ninedocs.userserver.user.application.dockercomposetest.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

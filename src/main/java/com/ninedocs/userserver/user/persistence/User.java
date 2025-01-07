@@ -1,4 +1,4 @@
-package com.ninedocs.userserver.persistence;
+package com.ninedocs.userserver.user.persistence;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,5 +28,8 @@ public class User {
 
   @Column(nullable = false)
   private String password;
+
+  @Column(nullable = false)
+  private String nickname;
 
 }
