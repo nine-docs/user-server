@@ -3,8 +3,11 @@ package com.ninedocs.userserver.user.application.emailverificationcode;
 import com.ninedocs.userserver.common.util.DateTimeUtil;
 import com.ninedocs.userserver.user.application.emailverificationcode.dto.EmailDuplicateCodeRequest;
 import com.ninedocs.userserver.user.application.emailverificationcode.exception.DuplicateEmailException;
+import com.ninedocs.userserver.user.application.emailverificationcode.exception.EmailFormatException;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,14 +27,13 @@ public class EmailVerificationCodeService {
     checkDuplicateEmail(email);
 
     String code = emailVerificationCodeGenerator.generateVerificationCode();
-    long expire = emailVerificationCodeRepository.saveVerificationCode(email, code);
     // redis 저장 시각을 리턴
-    return DateTimeUtil.convertLongToLocalDateTime(expire);
+    return emailVerificationCodeRepository.saveVerificationCode(email, code);
   }
 
   private void validateEmail(String email) {
     if (!EmailFormatValidator.isValid(email)) {
-      throw new IllegalArgumentException("Invalid email");
+      throw new EmailFormatException();
     }
   }
 
