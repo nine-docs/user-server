@@ -1,7 +1,7 @@
-package com.ninedocs.userserver.user.application.signUp;
+package com.ninedocs.userserver.user.application.signup;
 
-import com.ninedocs.userserver.user.application.signUp.dto.SignUpRequest;
-import com.ninedocs.userserver.user.application.signUp.exception.EmailNotVerifiedException;
+import com.ninedocs.userserver.user.application.signup.dto.SignUpRequest;
+import com.ninedocs.userserver.user.application.signup.exception.EmailNotVerifiedException;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;

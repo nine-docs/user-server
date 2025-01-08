@@ -1,4 +1,4 @@
-package com.ninedocs.userserver.user.application.signUp.dto;
+package com.ninedocs.userserver.user.application.signup.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
@@ -15,12 +15,12 @@ public class SignUpRequest {
 
   @NotNull
   @Schema(example = "example-nickname")
-  @Size(min = 1, max = 12)
+  @Size(min = 1, max = 50)
   private String nickname;
 
   @NotNull
   @Schema(example = "example-password")
-  @Size(min = 1, max = 255)
+  @Size(min = 8, max = 50)
   private String password;
 
 }

@@ -1,11 +1,11 @@
-package com.ninedocs.userserver;
+package com.ninedocs.userserver.signUp;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.ninedocs.userserver.user.application.signUp.EmailVerificationHandler;
-import com.ninedocs.userserver.user.application.signUp.dto.SignUpRequest;
-import com.ninedocs.userserver.user.application.signUp.exception.EmailNotVerifiedException;
+import com.ninedocs.userserver.user.application.signup.EmailVerificationHandler;
+import com.ninedocs.userserver.user.application.signup.dto.SignUpRequest;
+import com.ninedocs.userserver.user.application.signup.exception.EmailNotVerifiedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

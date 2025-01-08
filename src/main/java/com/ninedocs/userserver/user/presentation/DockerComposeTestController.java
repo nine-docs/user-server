@@ -16,12 +16,12 @@ public class DockerComposeTestController {
 
   private final TestService testService;
 
-  @GetMapping("/api/v1/user/test")
+  @GetMapping("/api/v1/user/dockercompose/test")
   public List<TestResponse> testUser() {
     return testService.getAllEmails();
   }
 
-  @PostMapping("/api/v1/user")
+  @PostMapping("/api/v1/user/dockercompose")
   public String createUser(@RequestBody TestRequest testRequest) {
     return testService.save(testRequest);
   }

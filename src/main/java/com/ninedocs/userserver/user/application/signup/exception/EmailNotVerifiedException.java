@@ -1,4 +1,4 @@
-package com.ninedocs.userserver.user.application.signUp.exception;
+package com.ninedocs.userserver.user.application.signup.exception;
 
 import com.ninedocs.userserver.common.exception.CustomException;
 
@@ -8,5 +8,4 @@ public class EmailNotVerifiedException extends CustomException {
   public String getErrorCode() {
     return "EMAIL_NOT_VERIFIED";
   }
-
 }
