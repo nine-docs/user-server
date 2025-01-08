@@ -3,7 +3,7 @@ package com.ninedocs.userserver.user.presentation;
 import com.ninedocs.userserver.common.presentation.dto.ApiResponse;
 import com.ninedocs.userserver.user.application.emailverificationcode.EmailFormatValidator;
 import com.ninedocs.userserver.user.application.emailverificationcode.exception.EmailFormatException;
-import com.ninedocs.userserver.user.application.signup.EmailVerificationHandler;
+import com.ninedocs.userserver.user.application.signup.EmailVerificationChecker;
 import com.ninedocs.userserver.user.application.signup.SignUpService;
 import com.ninedocs.userserver.user.application.signup.dto.SignUpRequest;
 import com.ninedocs.userserver.user.application.signup.dto.SignUpResponse;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SignUpController {
 
-  private final EmailVerificationHandler emailVerificationHandler;
+  private final EmailVerificationChecker emailVerificationChecker;
   private final SignUpService signUpService;
   private final UserRepository userRepository;
 
@@ -28,7 +28,7 @@ public class SignUpController {
     if (!EmailFormatValidator.isValid(signUpRequest.getEmail())) {
       throw new EmailFormatException();
     }
-    if (!emailVerificationHandler.checkEmailVerification(signUpRequest)) {
+    if (!emailVerificationChecker.checkEmailVerification(signUpRequest)) {
       throw new EmailNotVerifiedException();
     }
     String password = signUpService.getHashedPassword(signUpRequest.getPassword());

@@ -3,7 +3,7 @@ package com.ninedocs.userserver.signUp;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.ninedocs.userserver.user.application.signup.EmailVerificationHandler;
+import com.ninedocs.userserver.user.application.signup.EmailVerificationChecker;
 import com.ninedocs.userserver.user.application.signup.dto.SignUpRequest;
 import com.ninedocs.userserver.user.application.signup.exception.EmailNotVerifiedException;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
-class EmailVerificationHandlerTest {
+class EmailVerificationCheckerTest {
 
   @Mock
   private StringRedisTemplate stringRedisTemplate;
@@ -23,7 +23,7 @@ class EmailVerificationHandlerTest {
   private ValueOperations<String, String> valueOperations;
 
   @InjectMocks
-  private EmailVerificationHandler emailVerificationHandler;
+  private EmailVerificationChecker emailVerificationChecker;
 
   @BeforeEach
   void setUp() {
@@ -43,7 +43,7 @@ class EmailVerificationHandlerTest {
     signUpRequest.setEmail(email);
 
     // When
-    boolean result = emailVerificationHandler.checkEmailVerification(signUpRequest);
+    boolean result = emailVerificationChecker.checkEmailVerification(signUpRequest);
 
     // Then
     assertTrue(result);
@@ -61,7 +61,7 @@ class EmailVerificationHandlerTest {
 
     // When & Then
     assertThrows(EmailNotVerifiedException.class, () ->
-        emailVerificationHandler.checkEmailVerification(signUpRequest)
+        emailVerificationChecker.checkEmailVerification(signUpRequest)
     );
   }
 }

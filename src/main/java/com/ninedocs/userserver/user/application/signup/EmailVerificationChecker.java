@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class EmailVerificationHandler {
+public class EmailVerificationChecker {
 
   private final StringRedisTemplate stringRedisTemplate;
 
