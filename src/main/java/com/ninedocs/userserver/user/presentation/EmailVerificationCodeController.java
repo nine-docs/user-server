@@ -17,7 +17,7 @@ public class EmailVerificationCodeController {
 
   private final EmailVerificationCodeService emailVerificationCodeService;
 
-  @PostMapping("/api/v1/user/email-verfication-code")
+  @PostMapping("/api/v1/user/email-verification-code")
   public ApiResponse<EmailVerificationCodeResponse> sendVerificationCode(
       @Valid @RequestBody EmailDuplicateCodeRequest emailDuplicateCodeRequest) {
     // redis 저장 시간 가져오기
