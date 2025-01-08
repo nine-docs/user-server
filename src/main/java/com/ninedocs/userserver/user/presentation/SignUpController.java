@@ -1,6 +1,8 @@
 package com.ninedocs.userserver.user.presentation;
 
 import com.ninedocs.userserver.common.presentation.dto.ApiResponse;
+import com.ninedocs.userserver.user.application.emailverificationcode.EmailFormatValidator;
+import com.ninedocs.userserver.user.application.emailverificationcode.exception.EmailFormatException;
 import com.ninedocs.userserver.user.application.signup.EmailVerificationHandler;
 import com.ninedocs.userserver.user.application.signup.SignUpService;
 import com.ninedocs.userserver.user.application.signup.dto.SignUpRequest;
@@ -23,6 +25,9 @@ public class SignUpController {
 
   @PostMapping("/api/v1/user")
   public ApiResponse<SignUpResponse> signUp(SignUpRequest signUpRequest) {
+    if (!EmailFormatValidator.isValid(signUpRequest.getEmail())) {
+      throw new EmailFormatException();
+    }
     if (!emailVerificationHandler.checkEmailVerification(signUpRequest)) {
       throw new EmailNotVerifiedException();
     }
