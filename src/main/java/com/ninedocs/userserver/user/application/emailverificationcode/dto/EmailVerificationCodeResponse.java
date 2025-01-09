@@ -10,5 +10,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public class EmailVerificationCodeResponse {
 
-  private Date verificationCodeExpiredAt;
+  private LocalDateTime verificationCodeExpiredAt;
 }
