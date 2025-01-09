@@ -22,13 +22,14 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(EmailFormatException.class)
-  public ResponseEntity<Object> handleValidEmailException(
+  public ResponseEntity<ErrorResponse> handleValidEmailException(
       EmailFormatException e) {
-    Map<String, Object> body = new HashMap<>();
-    body.put("status", HttpStatus.BAD_REQUEST.value());
-    body.put("error", "Bad Request");
-    body.put("message", e.getErrorCode());
-    return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    ErrorResponse errorResponse = ErrorResponse.builder()
+        .error("Bad Request")
+        .message(e.getMessage())
+        .status(HttpStatus.BAD_REQUEST.value())
+        .build();
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
