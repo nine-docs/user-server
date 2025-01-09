@@ -6,12 +6,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class PasswordEncrypter {
+public class PasswordEncryptor {
 
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-  public String hashedPassword(String password) {
-    return bCryptPasswordEncoder.encode(password);
+  public boolean matches(String password, String hashedPassword) {
+    return bCryptPasswordEncoder.matches(password, hashedPassword);
   }
 
 }

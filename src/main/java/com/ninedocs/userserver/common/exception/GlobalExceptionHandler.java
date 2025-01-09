@@ -1,10 +1,8 @@
 package com.ninedocs.userserver.common.exception;
 
+import com.ninedocs.userserver.common.exception.dto.ErrorResponse;
 import com.ninedocs.userserver.common.presentation.dto.ApiResponse;
 import com.ninedocs.userserver.user.application.emailverificationcode.exception.EmailFormatException;
-import java.net.http.HttpResponse;
-import java.util.HashMap;
-import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,30 +20,30 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(EmailFormatException.class)
-  public ResponseEntity<Object> handleValidEmailException(
+  public ResponseEntity<ErrorResponse> handleValidEmailException(
       EmailFormatException e) {
-    Map<String, Object> body = new HashMap<>();
-    body.put("status", HttpStatus.BAD_REQUEST.value());
-    body.put("error", "Bad Request");
-    body.put("message", e.getErrorCode());
-    return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    ErrorResponse errorResponse = ErrorResponse.builder()
+        .error("Bad Request")
+        .message(e.getMessage())
+        .status(HttpStatus.BAD_REQUEST.value())
+        .build();
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<Map<String, Object>> handleMethodArgumentNotValidException(
+  public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(
       MethodArgumentNotValidException e) {
-    Map<String, Object> body = new HashMap<>();
-    body.put("status", HttpStatus.BAD_REQUEST.value());
-    body.put("error", "Bad Request");
+    ErrorResponse errorResponse = ErrorResponse.builder()
+        .error("Bad Request")
+        .message(
+            e.getBindingResult().hasFieldErrors()
+                ? "validation failed"
+                : e.getBindingResult().getFieldError().getDefaultMessage()
+        )
+        .status(HttpStatus.BAD_REQUEST.value())
+        .build();
 
-    // 첫 번째 Validation 에러의 메시지를 가져옵니다.
-    if (e.getBindingResult().hasFieldErrors()) {
-      body.put("message", e.getBindingResult().getFieldError().getDefaultMessage());
-    } else {
-      body.put("message", "Validation failed");
-    }
-
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
   }
 
 

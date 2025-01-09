@@ -1,6 +1,7 @@
-package com.ninedocs.userserver.user.application.signup.dto;
+package com.ninedocs.userserver.user.application.signin.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,10 +9,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class SignUpResponse {
-
-  @Schema(example = "1")
-  private long id;
+public class SignInResponse {
 
   @Schema(example = "example-token")
   private String token;

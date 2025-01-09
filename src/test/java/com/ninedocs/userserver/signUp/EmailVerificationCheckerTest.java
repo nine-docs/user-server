@@ -43,7 +43,7 @@ class EmailVerificationCheckerTest {
     signUpRequest.setEmail(email);
 
     // When
-    boolean result = emailVerificationChecker.checkEmailVerification(signUpRequest);
+    boolean result = emailVerificationChecker.checkEmailVerification(email);
 
     // Then
     assertTrue(result);
@@ -55,13 +55,10 @@ class EmailVerificationCheckerTest {
     String email = "test@example.com";
     String key = "verified-" + email;
     when(valueOperations.get(key)).thenReturn(null);
-
-    SignUpRequest signUpRequest = new SignUpRequest();
-    signUpRequest.setEmail(email);
-
+    
     // When & Then
     assertThrows(EmailNotVerifiedException.class, () ->
-        emailVerificationChecker.checkEmailVerification(signUpRequest)
+        emailVerificationChecker.checkEmailVerification(email)
     );
   }
 }
