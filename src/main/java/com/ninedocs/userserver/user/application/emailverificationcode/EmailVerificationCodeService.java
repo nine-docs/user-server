@@ -16,7 +16,6 @@ public class EmailVerificationCodeService {
 
   private final EmailVerificationCodeGenerator emailVerificationCodeGenerator;
   private final EmailDuplicationChecker emailDuplicationChecker;
-  //private final EmailNotificationService emailNotificationService;
   private final EmailVerificationCodeRepository emailVerificationCodeRepository;
 
   public LocalDateTime sendVerificationCode(EmailDuplicateCodeRequest emailDuplicateCodeRequest) {

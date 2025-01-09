@@ -13,8 +13,7 @@ public class EmailVerificationChecker {
 
   private final StringRedisTemplate stringRedisTemplate;
 
-  public boolean checkEmailVerification(SignUpRequest signUpRequest) {
-    String email = signUpRequest.getEmail();
+  public boolean checkEmailVerification(String email) {
     String check = stringRedisTemplate.opsForValue().get("verified-" + email);
     if (!Objects.equals(check, "verified")) {
       throw new EmailNotVerifiedException();

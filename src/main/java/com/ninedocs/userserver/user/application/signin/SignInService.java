@@ -14,8 +14,7 @@ public class SignInService {
 
   private final UserRepository userRepository;
   private final PasswordEncryptor passwordEncryptor;
-  private final JwtProvider jwtProvider;
-
+  
   public long signIn(String email, String password) {
     Optional<User> user = userRepository.findByEmail(email);
     if (user.isEmpty()) {

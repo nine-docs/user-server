@@ -15,6 +15,8 @@ import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,25 +31,18 @@ public class SignUpController {
   private final JwtProvider jwtProvider;
 
   @PostMapping("/api/v1/user")
-  public ApiResponse<SignUpResponse> signUp(@Valid @RequestBody SignUpRequest signUpRequest) {
-    if (!EmailFormatValidator.isValid(signUpRequest.getEmail())) {
-      throw new EmailFormatException();
-    }
-    if (!emailVerificationChecker.checkEmailVerification(signUpRequest)) {
-      throw new EmailNotVerifiedException();
-    }
-    String password = signUpService.getHashedPassword(signUpRequest.getPassword());
-    User user = User.builder().email(signUpRequest.getEmail()).password(password)
-        .nickname(signUpRequest.getNickname()).build();
-    long id = userRepository.save(user).getId();
-    Date now = jwtProvider.generateNow();
+  public ResponseEntity<ApiResponse<SignUpResponse>> signUp(
+      @Valid @RequestBody SignUpRequest signUpRequest) {
+    long id = signUpService.signUp(signUpRequest.getEmail(), signUpRequest.getPassword(),
+        signUpRequest.getNickname());
+    Date now = new Date();
     Date expiry = jwtProvider.generateExpiryDate(now);
     //jwt토큰 생성
     String token = jwtProvider.generateAccessToken(id, expiry, now);
     //LocalDateTime으로 타입 변경
     LocalDateTime accessTokenExpiredAt = jwtProvider.convertToLocalDateTime(expiry);
     SignUpResponse signUpResponse = new SignUpResponse(id, token, accessTokenExpiredAt);
-    return ApiResponse.success(signUpResponse);
+    return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(signUpResponse));
   }
 
 

@@ -3,7 +3,6 @@ package com.ninedocs.userserver.common.exception;
 import com.ninedocs.userserver.common.exception.dto.ErrorResponse;
 import com.ninedocs.userserver.common.presentation.dto.ApiResponse;
 import com.ninedocs.userserver.user.application.emailverificationcode.exception.EmailFormatException;
-import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
@@ -35,12 +34,15 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(
       MethodArgumentNotValidException e) {
-    ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Bad Request",
-        "validation failed");
-    // 첫 번째 Validation 에러의 메시지를 가져옵니다.
-    if (e.getBindingResult().hasFieldErrors()) {
-      errorResponse.setMessage(e.getBindingResult().getFieldError().getDefaultMessage());
-    }
+    ErrorResponse errorResponse = ErrorResponse.builder()
+        .error("Bad Request")
+        .message(
+            e.getBindingResult().hasFieldErrors()
+                ? "validation failed"
+                : e.getBindingResult().getFieldError().getDefaultMessage()
+        )
+        .status(HttpStatus.BAD_REQUEST.value())
+        .build();
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
   }
