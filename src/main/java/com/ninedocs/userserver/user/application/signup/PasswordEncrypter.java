@@ -14,4 +14,8 @@ public class PasswordEncrypter {
     return bCryptPasswordEncoder.encode(password);
   }
 
+  public boolean matches(String password, String hashedPassword) {
+    return bCryptPasswordEncoder.matches(password, hashedPassword);
+  }
+
 }

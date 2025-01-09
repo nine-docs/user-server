@@ -1,5 +1,6 @@
 package com.ninedocs.userserver.common.exception;
 
+import com.ninedocs.userserver.common.exception.dto.ErrorResponse;
 import com.ninedocs.userserver.common.presentation.dto.ApiResponse;
 import com.ninedocs.userserver.user.application.emailverificationcode.exception.EmailFormatException;
 import java.net.http.HttpResponse;
@@ -32,20 +33,16 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<Map<String, Object>> handleMethodArgumentNotValidException(
+  public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(
       MethodArgumentNotValidException e) {
-    Map<String, Object> body = new HashMap<>();
-    body.put("status", HttpStatus.BAD_REQUEST.value());
-    body.put("error", "Bad Request");
-
+    ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Bad Request",
+        "validation failed");
     // 첫 번째 Validation 에러의 메시지를 가져옵니다.
     if (e.getBindingResult().hasFieldErrors()) {
-      body.put("message", e.getBindingResult().getFieldError().getDefaultMessage());
-    } else {
-      body.put("message", "Validation failed");
+      errorResponse.setMessage(e.getBindingResult().getFieldError().getDefaultMessage());
     }
 
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
   }
 
 
