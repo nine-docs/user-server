@@ -6,19 +6,18 @@ import com.ninedocs.userserver.user.application.emailverificationcode.exception.
 import com.ninedocs.userserver.user.persistence.User;
 import com.ninedocs.userserver.user.persistence.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class SignUpService {
 
-  private final PasswordEncoder passwordEncoder;
+  private final PasswordEncryptor passwordEncryptor;
   private final EmailVerificationChecker emailVerificationChecker;
   private final UserRepository userRepository;
 
   public String getHashedPassword(String password) {
-    return passwordEncoder.encode(password);
+    return passwordEncryptor.hashedPassword(password);
   }
 
   public long signUp(String email, String password, String nickname) {
