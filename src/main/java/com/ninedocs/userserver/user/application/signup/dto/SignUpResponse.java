@@ -3,10 +3,11 @@ package com.ninedocs.userserver.user.application.signup.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
+@Builder
 public class SignUpResponse {
 
   @Schema(example = "1")
@@ -15,6 +16,6 @@ public class SignUpResponse {
   @Schema(example = "example-token")
   private String token;
 
-  @Schema(example = "2024-12-27 19:51:25.125")
+  @Schema(example = "2025-01-09 14:52:15.672743", type = "string")
   private LocalDateTime accessTokenExpiredAt;
 }

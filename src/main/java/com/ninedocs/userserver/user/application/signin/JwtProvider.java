@@ -1,5 +1,6 @@
 package com.ninedocs.userserver.user.application.signin;
 
+import com.ninedocs.userserver.user.application.signin.dto.JwtTokenResult;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -23,24 +24,28 @@ public class JwtProvider {
     this.secretKey = Keys.hmacShaKeyFor(secret.getBytes()); // 생성자에서 초기화
   }
 
-  public Date generateNow() {
-    return new Date();
-  }
+  public JwtTokenResult generateAccessToken(long id) {
+    Date now = new Date();
+    Date expiryDate = generateExpiryDate(now);
 
-  public Date generateExpiryDate(Date now) {
-    return new Date(now.getTime() + accessTokenExpirationMs);
-  }
-
-  public String generateAccessToken(long id, Date expiryDate, Date now) {
-    return Jwts.builder()
+    String token = Jwts.builder()
         .setSubject(String.valueOf(id))
         .setIssuedAt(now)
         .setExpiration(expiryDate)
         .signWith(secretKey, SignatureAlgorithm.HS512) // secretKey 사용
         .compact();
+
+    return JwtTokenResult.builder()
+        .expiredAt(convertToLocalDateTime(expiryDate))
+        .token(token)
+        .build();
   }
 
-  public LocalDateTime convertToLocalDateTime(Date date) {
+  private Date generateExpiryDate(Date now) {
+    return new Date(now.getTime() + accessTokenExpirationMs);
+  }
+
+  private LocalDateTime convertToLocalDateTime(Date date) {
     return date.toInstant()
         .atZone(ZoneId.systemDefault())
         .toLocalDateTime();

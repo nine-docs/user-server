@@ -4,6 +4,7 @@ import com.ninedocs.userserver.common.presentation.dto.ApiResponse;
 import com.ninedocs.userserver.user.application.emailverificationcode.EmailFormatValidator;
 import com.ninedocs.userserver.user.application.emailverificationcode.exception.EmailFormatException;
 import com.ninedocs.userserver.user.application.signin.JwtProvider;
+import com.ninedocs.userserver.user.application.signin.dto.JwtTokenResult;
 import com.ninedocs.userserver.user.application.signup.EmailVerificationChecker;
 import com.ninedocs.userserver.user.application.signup.SignUpService;
 import com.ninedocs.userserver.user.application.signup.dto.SignUpRequest;
@@ -25,9 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SignUpController {
 
-  private final EmailVerificationChecker emailVerificationChecker;
   private final SignUpService signUpService;
-  private final UserRepository userRepository;
   private final JwtProvider jwtProvider;
 
   @PostMapping("/api/v1/user")
@@ -35,13 +34,12 @@ public class SignUpController {
       @Valid @RequestBody SignUpRequest signUpRequest) {
     long id = signUpService.signUp(signUpRequest.getEmail(), signUpRequest.getPassword(),
         signUpRequest.getNickname());
-    Date now = new Date();
-    Date expiry = jwtProvider.generateExpiryDate(now);
-    //jwt토큰 생성
-    String token = jwtProvider.generateAccessToken(id, expiry, now);
-    //LocalDateTime으로 타입 변경
-    LocalDateTime accessTokenExpiredAt = jwtProvider.convertToLocalDateTime(expiry);
-    SignUpResponse signUpResponse = new SignUpResponse(id, token, accessTokenExpiredAt);
+    JwtTokenResult token = jwtProvider.generateAccessToken(id);
+    SignUpResponse signUpResponse = SignUpResponse.builder()
+        .accessTokenExpiredAt(token.getExpiredAt())
+        .id(id)
+        .token(token.getToken())
+        .build();
     return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(signUpResponse));
   }
 

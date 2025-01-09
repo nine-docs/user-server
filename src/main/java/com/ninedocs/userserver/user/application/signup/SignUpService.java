@@ -6,19 +6,16 @@ import com.ninedocs.userserver.user.application.emailverificationcode.exception.
 import com.ninedocs.userserver.user.persistence.User;
 import com.ninedocs.userserver.user.persistence.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class SignUpService {
 
-  private final PasswordEncryptor passwordEncryptor;
   private final EmailVerificationChecker emailVerificationChecker;
   private final UserRepository userRepository;
-
-  public String getHashedPassword(String password) {
-    return passwordEncryptor.hashedPassword(password);
-  }
+  private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
   public long signUp(String email, String password, String nickname) {
     if (!EmailFormatValidator.isValid(email)) {
@@ -27,7 +24,7 @@ public class SignUpService {
     if (!emailVerificationChecker.checkEmailVerification(email)) {
       throw new EmailVerificationException();
     }
-    String hashedPassword = getHashedPassword(password);
+    String hashedPassword = bCryptPasswordEncoder.encode(password);
     User user = User.builder()
         .email(email)
         .password(hashedPassword)

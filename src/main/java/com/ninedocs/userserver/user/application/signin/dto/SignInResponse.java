@@ -4,17 +4,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
+@Builder
 public class SignInResponse {
 
-  @NotNull
   @Schema(example = "example-token")
   private String token;
-  
-  @NotNull
-  @Schema(example = "accessTokenExpiredAt")
+
+  @Schema(example = "2025-01-09 14:52:15.672743", type = "string")
   private LocalDateTime accessTokenExpiredAt;
 }
