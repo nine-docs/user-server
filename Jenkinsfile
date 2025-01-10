@@ -2,8 +2,6 @@ pipeline {
     agent any
     environment {
         DOCKER_HUB_IMAGE_REPO =  "ninedocs-user-server"
-        DOCKER_USERNAME = "${env.DOCKERHUB_USERNAME}" // GitHub Secrets로 전달받음
-        DOCKER_PASSWORD = "${env.DOCKERHUB_TOKEN}" // GitHub Secrets로 전달받음
     }
     options {
         disableConcurrentBuilds() // 동시에 빌드 실행 방지
@@ -60,7 +58,7 @@ pipeline {
         stage('Docker Login') {
             steps {
                 // Jenkins Credentials를 사용하여 Docker Hub에 로그인
-                withCredentials([usernamePassword(credentialsId: 'gunwoda-dockerhub', usernameVariable: 'username', passwordVariable: 'token')]) {
+                withCredentials([usernamePassword(credentialsId: 'gunwoo-dockerhub-cre', usernameVariable: 'username', passwordVariable: 'token')]) {
                     sh "echo ${token} | docker login -u ${username} --password-stdin"
                 }
             }
@@ -69,13 +67,13 @@ pipeline {
         stage('Docker Build') {
             steps {
                 // Docker 이미지 빌드
-                sh "docker build -t ${IMAGE_NAME}:${TAG} ."
+                sh "docker build -t ${DOCKER_HUB_IMAGE_REPO}:${TAG} ."
             }
         }
         stage('Push to Registry') {
             steps {
                 // Docker Registry로 푸시
-                sh "docker push ${IMAGE_NAME}:${TAG}"
+                sh "docker push ${username}/${DOCKER_HUB_IMAGE_REPO}:${TAG}"
             }
         }
 
