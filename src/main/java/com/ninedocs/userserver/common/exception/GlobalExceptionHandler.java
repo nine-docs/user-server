@@ -2,6 +2,7 @@ package com.ninedocs.userserver.common.exception;
 
 import com.ninedocs.userserver.common.exception.dto.ErrorResponse;
 import com.ninedocs.userserver.common.presentation.dto.ApiResponse;
+import com.ninedocs.userserver.user.application.deleteuser.exception.NullUserException;
 import com.ninedocs.userserver.user.application.emailverificationcode.exception.EmailFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,16 @@ public class GlobalExceptionHandler {
         .status(HttpStatus.BAD_REQUEST.value())
         .build();
 
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+  }
+
+  @ExceptionHandler(NullUserException.class)
+  public ResponseEntity<ErrorResponse> handleNullUserException(NullUserException e) {
+    ErrorResponse errorResponse = ErrorResponse.builder()
+        .error("Bad Request")
+        .message(e.getErrorCode())
+        .status(HttpStatus.BAD_REQUEST.value())
+        .build();
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
   }
 
