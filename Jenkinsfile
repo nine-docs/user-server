@@ -73,7 +73,6 @@ pipeline {
         }
         stage('Push to Registry') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'gunwoo-dockerhub-cre', usernameVariable: 'username', passwordVariable: 'token')]){
                   // Docker Registry로 푸시
                   sh "docker push ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_IMAGE_REPO}:${TAG}"
                 }
