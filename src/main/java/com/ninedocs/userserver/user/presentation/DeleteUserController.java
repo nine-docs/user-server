@@ -6,6 +6,7 @@ import com.ninedocs.userserver.user.application.deleteuser.dto.DeleteUserRequest
 import com.ninedocs.userserver.user.application.deleteuser.dto.DeleteUserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -15,7 +16,7 @@ public class DeleteUserController {
   private final DeleteUserService deleteUserService;
 
   @DeleteMapping("api/v1/user/delete")
-  public ApiResponse<DeleteUserResponse> deleteUser(DeleteUserRequest request) {
+  public ApiResponse<DeleteUserResponse> deleteUser(@RequestBody DeleteUserRequest request) {
     long id = request.getId();
     deleteUserService.deleteUser(id);
     DeleteUserResponse response = new DeleteUserResponse("success");
