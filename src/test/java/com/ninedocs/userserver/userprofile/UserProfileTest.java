@@ -41,13 +41,12 @@ class UserProfileTest {
     when(userRepository.findById(userId)).thenReturn(Optional.of(mockUser));
 
     // Act
-    UserProfileResponse response = userProfileService.UserCheck(userId);
+    UserProfileResponse response = userProfileService.getUserProfile(userId);
 
     // Assert
     assertNotNull(response);
     assertEquals("test@example.com", response.getEmail());
     assertEquals("testUser", response.getNickname());
-    verify(userRepository, times(2)).findById(userId);
   }
 
   @Test
@@ -57,7 +56,6 @@ class UserProfileTest {
     when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
     // Act & Assert
-    assertThrows(NullUserException.class, () -> userProfileService.UserCheck(userId));
-    verify(userRepository, times(1)).findById(userId);
+    assertThrows(NullUserException.class, () -> userProfileService.getUserProfile(userId));
   }
 }

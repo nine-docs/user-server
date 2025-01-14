@@ -13,7 +13,7 @@ public class UserProfileService {
 
   private final UserRepository userRepository;
 
-  public UserProfileResponse UserCheck(long id) {
+  public UserProfileResponse getUserProfile(long id) {
     if (userRepository.findById(id).isEmpty()) {
       throw new NullUserException();
     }
