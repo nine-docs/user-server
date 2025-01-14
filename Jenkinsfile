@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_HUB_IMAGE_REPO =  "ninedocs-user-server"
+        DOCKER_HUB_IMAGE_REPO = "ninedocs-user-server"
         DOCKER_HUB_USERNAME = "gunwoda"
     }
     options {
@@ -43,19 +43,6 @@ pipeline {
                 }
             }
         }
-        stage("Gradle Build") {
-            steps {
-                sh "./gradlew clean build"
-            }
-            post {
-                success {
-                    sh 'echo "# gradlew build success"'
-                }
-                failure {
-                    sh 'echo "# gradlew build failure"'
-                }
-            }
-        }
         stage('Docker Login') {
             steps {
                 // Jenkins Credentials를 사용하여 Docker Hub에 로그인
@@ -64,7 +51,6 @@ pipeline {
                 }
             }
         }
-
         stage('Docker Build') {
             steps {
                 // Docker 이미지 빌드
@@ -73,11 +59,9 @@ pipeline {
         }
         stage('Push to Registry') {
             steps {
-                  // Docker Registry로 푸시
-                  sh "docker push ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_IMAGE_REPO}:${TAG}"
-                }
+                // Docker Registry로 푸시
+                sh "docker push ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_IMAGE_REPO}:${TAG}"
             }
         }
-
     }
 }
