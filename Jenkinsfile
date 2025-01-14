@@ -43,19 +43,6 @@ pipeline {
                 }
             }
         }
-        stage("Gradle Build") {
-            steps {
-                sh "./gradlew clean build"
-            }
-            post {
-                success {
-                    sh 'echo "# gradlew build success"'
-                }
-                failure {
-                    sh 'echo "# gradlew build failure"'
-                }
-            }
-        }
         stage('Docker Login') {
             steps {
                 // Jenkins Credentials를 사용하여 Docker Hub에 로그인
