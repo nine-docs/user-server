@@ -1,4 +1,4 @@
-package com.ninedocs.userserver.signUp;
+package com.ninedocs.userserver.signup;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,7 +55,7 @@ class EmailVerificationCheckerTest {
     String email = "test@example.com";
     String key = "verified-" + email;
     when(valueOperations.get(key)).thenReturn(null);
-    
+
     // When & Then
     assertThrows(EmailNotVerifiedException.class, () ->
         emailVerificationChecker.checkEmailVerification(email)

@@ -62,7 +62,6 @@ pipeline {
             steps {
                   // Docker Registry로 푸시
                   sh "docker push ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_IMAGE_REPO}:${TAG}"
-                }
             }
         }
 }
