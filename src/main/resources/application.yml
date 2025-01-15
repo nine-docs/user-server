@@ -1,8 +1,5 @@
 server:
   port: 8080
-jwt:
-  secret: secret-64-byte-minimum-secret-key-which-must-be-long-enough-for-hmac
-  access-token-expiration-ms: 3600000
 springdoc:
   swagger-ui:
     path: '/swagger'
@@ -11,15 +8,11 @@ springdoc:
     tags-sorter: 'alpha'
 
 spring:
+  profiles:
+    active: 'local'
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    #    url: jdbc:mysql://43.203.220.75:3306/mydatabase
-    url: jdbc:mysql://127.0.0.1:3306/mydatabase
-    username: myuser
-    password: mypassword
   jpa:
-    hibernate:
-      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: true
@@ -27,6 +20,5 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
   data:
     redis:
-      #      host: 43.203.220.75
       host: localhost
       port: 6379
