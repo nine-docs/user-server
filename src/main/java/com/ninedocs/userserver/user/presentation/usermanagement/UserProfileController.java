@@ -22,7 +22,7 @@ public class UserProfileController {
   @Operation(summary = "유저 정보 조회")
   @GetMapping("/api/v1/user/{userId}")
   public ResponseEntity<ApiResponse<UserProfileResponse>> checkUser(
-      @PathVariable("userId") long userId) {
+      @PathVariable("userId") Long userId) {
     return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(
         userProfileService.getUserProfile(userId)
     ));

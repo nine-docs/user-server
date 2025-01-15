@@ -2,7 +2,6 @@ package com.ninedocs.userserver.authentication;
 
 import static org.mockito.Mockito.when;
 
-import com.ninedocs.userserver.user.application.emailverificationcode.EmailVerificationCodeGenerator;
 import com.ninedocs.userserver.user.application.emailverificationcode.EmailVerificationCodeRepository;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Assertions;
@@ -23,25 +22,11 @@ public class EmailVerificationCodeTest {
   @Mock
   private ValueOperations<String, String> valueOperations;
 
-  @Mock
-  private EmailVerificationCodeGenerator emailVerificationCodeGenerator;
-
   private EmailVerificationCodeRepository emailVerificationCodeRepository;
 
   @BeforeEach
   void setUp() {
     emailVerificationCodeRepository = new EmailVerificationCodeRepository(redisTemplate);
-  }
-
-  @Test
-  public void generateEmailVerificationCodeTest() {
-
-    when(emailVerificationCodeGenerator.generateVerificationCode()).thenReturn("111111");
-
-    String generatedCode = emailVerificationCodeGenerator.generateVerificationCode();
-
-    Assertions.assertEquals("111111", generatedCode,
-        "Generated code should match the expected value");
   }
 
   @Test
