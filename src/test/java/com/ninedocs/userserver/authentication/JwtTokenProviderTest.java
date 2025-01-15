@@ -2,7 +2,6 @@ package com.ninedocs.userserver.authentication;
 
 import com.ninedocs.userserver.user.application.signin.JwtProvider;
 import com.ninedocs.userserver.user.application.signin.dto.JwtTokenResult;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,7 @@ class JwtTokenProviderTest {
   @BeforeEach
   void setUp() {
     // 테스트용 비밀 키
-    String secret = "mySuperSecretKey12345678901234567890";
+    String secret = "mySuperSecretKey12345678901234567890mySuperSecretKey1234567890123456";
     // 1시간 (3600000ms)
     long expirationMs = 3600000;
     jwtProvider = new JwtProvider(secret, expirationMs);
