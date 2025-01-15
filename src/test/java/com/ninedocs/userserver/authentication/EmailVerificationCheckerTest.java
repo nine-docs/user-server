@@ -1,4 +1,4 @@
-package com.ninedocs.userserver.signup;
+package com.ninedocs.userserver.authentication;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
