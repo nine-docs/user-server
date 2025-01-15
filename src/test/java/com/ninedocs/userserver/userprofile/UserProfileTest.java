@@ -7,15 +7,18 @@ import com.ninedocs.userserver.user.persistence.User;
 import com.ninedocs.userserver.user.persistence.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class UserProfileTest {
 
   @Mock
@@ -23,11 +26,6 @@ class UserProfileTest {
 
   @InjectMocks
   private UserProfileService userProfileService;
-
-  @BeforeEach
-  void setUp() {
-    MockitoAnnotations.openMocks(this);
-  }
 
   @Test
   void testUserCheck_UserExists() {

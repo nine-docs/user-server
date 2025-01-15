@@ -1,4 +1,4 @@
-package com.ninedocs.userserver.signup;
+package com.ninedocs.userserver.userprofile;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,12 +8,14 @@ import com.ninedocs.userserver.user.application.signup.dto.SignUpRequest;
 import com.ninedocs.userserver.user.application.signup.exception.EmailNotVerifiedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
+@ExtendWith(MockitoExtension.class)
 class EmailVerificationCheckerTest {
 
   @Mock
@@ -27,7 +29,6 @@ class EmailVerificationCheckerTest {
 
   @BeforeEach
   void setUp() {
-    MockitoAnnotations.openMocks(this);
     // 모의 객체에 opsForValue() 호출 결과 설정
     when(stringRedisTemplate.opsForValue()).thenReturn(valueOperations);
   }
