@@ -19,4 +19,11 @@ COPY --from=builder /app/build/libs/*.jar app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["sh", "-c", "java -jar app.jar \
+  --spring.profiles.active=${PROFILE} \
+  -DRDS_URL=${RDS_URL} \
+  -DRDS_USERNAME=${RDS_USERNAME} \
+  -DRDS_PASSWORD=${RDS_PASSWORD} \
+  -DREDIS_HOST=${REDIS_HOST} \
+  -DREDIS_PASSWORD=${REDIS_PASSWORD} \
+  -DJWT_SECRET=${JWT_SECRET}"]
