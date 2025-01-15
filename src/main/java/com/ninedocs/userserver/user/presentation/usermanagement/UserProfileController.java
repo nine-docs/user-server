@@ -1,4 +1,4 @@
-package com.ninedocs.userserver.user.presentation;
+package com.ninedocs.userserver.user.presentation.usermanagement;
 
 import com.ninedocs.userserver.common.presentation.dto.ApiResponse;
 import com.ninedocs.userserver.user.application.userprofile.UserProfileService;

@@ -1,4 +1,4 @@
-package com.ninedocs.userserver.user.presentation;
+package com.ninedocs.userserver.user.presentation.authentication;
 
 
 import com.ninedocs.userserver.common.presentation.dto.ApiResponse;

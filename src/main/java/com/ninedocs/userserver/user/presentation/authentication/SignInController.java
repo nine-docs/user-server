@@ -1,4 +1,4 @@
-package com.ninedocs.userserver.user.presentation;
+package com.ninedocs.userserver.user.presentation.authentication;
 
 import com.ninedocs.userserver.common.presentation.dto.ApiResponse;
 import com.ninedocs.userserver.user.application.signin.JwtProvider;
@@ -7,8 +7,6 @@ import com.ninedocs.userserver.user.application.signin.dto.JwtTokenResult;
 import com.ninedocs.userserver.user.application.signin.dto.SignInRequest;
 import com.ninedocs.userserver.user.application.signin.dto.SignInResponse;
 import jakarta.validation.Valid;
-import java.time.LocalDateTime;
-import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
