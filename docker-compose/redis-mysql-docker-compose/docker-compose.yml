@@ -6,6 +6,9 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=mypassword
+    command: [ "redis-server", "--requirepass", "$REDIS_PASSWORD" ]
   mysql:
     image: mysql:8.0
     container_name: mysql
