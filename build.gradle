@@ -44,6 +44,8 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
     //bcrypt
     implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.3m' // gradle
+
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
 
 tasks.named('test') {
