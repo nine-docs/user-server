@@ -6,6 +6,7 @@ import com.ninedocs.userserver.user.persistence.User;
 import com.ninedocs.userserver.user.persistence.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -13,13 +14,11 @@ public class UserProfileService {
 
   private final UserRepository userRepository;
 
+  @Transactional(readOnly = true)
   public UserProfileResponse getUserProfile(long id) {
-    if (userRepository.findById(id).isEmpty()) {
-      throw new NullUserException();
-    }
-    User user = userRepository.findById(id).get();
-    return new UserProfileResponse(user.getEmail(),
-        user.getNickname());
-  }
+    User user = userRepository.findByIdAndDeletedAtIsNull(id)
+        .orElseThrow(NullUserException::new);
 
+    return new UserProfileResponse(user.getEmail(), user.getNickname());
+  }
 }

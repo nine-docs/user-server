@@ -27,10 +27,11 @@ public class EmailDuplicationCheckerTest {
 
   @BeforeEach
   void setUp() {
-    user = new User();
-    user.setEmail("example@example.com");
-    user.setNickname("example");
-    user.setPassword("example");
+    user = User.builder()
+        .email("example@example.com")
+        .nickname("example")
+        .password("example")
+        .build();
   }
 
   @Test
@@ -42,5 +43,4 @@ public class EmailDuplicationCheckerTest {
 
     Assertions.assertTrue(isDuplicate);
   }
-
 }

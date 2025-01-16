@@ -18,7 +18,7 @@ public class SignInService {
 
   @Transactional(readOnly = true)
   public long signIn(String email, String password) {
-    Optional<User> user = userRepository.findByEmail(email);
+    Optional<User> user = userRepository.findByEmailAndDeletedAtIsNull(email);
     if (user.isEmpty()) {
       throw new SignInFailException();
     }
