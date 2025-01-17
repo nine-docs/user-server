@@ -2,7 +2,7 @@ server:
   port: 8080
 springdoc:
   swagger-ui:
-    path: '/swagger'
+    path: '/user/swagger'
     disable-swagger-default-url: true
     operations-sorter: 'alpha'
     tags-sorter: 'alpha'
