@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,10 +20,9 @@ public class DeleteUserController {
   private final DeleteUserService deleteUserService;
 
   @Operation(summary = "회원 탈퇴")
-  @DeleteMapping("api/v1/user/delete")
-  public ApiResponse<DeleteUserResponse> deleteUser(@RequestBody DeleteUserRequest request) {
-    long id = request.getId();
-    deleteUserService.deleteUser(id);
+  @DeleteMapping("api/v1/user/{userId}")
+  public ApiResponse<DeleteUserResponse> deleteUser(@PathVariable Long userId) {
+    deleteUserService.deleteUser(userId);
     DeleteUserResponse response = new DeleteUserResponse("success");
     return ApiResponse.success(response);
   }
