@@ -3,7 +3,6 @@ package com.ninedocs.userserver.user.application.signin;
 import com.ninedocs.userserver.user.application.signin.exception.SignInFailException;
 import com.ninedocs.userserver.user.persistence.User;
 import com.ninedocs.userserver.user.persistence.UserRepository;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,15 +17,12 @@ public class SignInService {
 
   @Transactional(readOnly = true)
   public long signIn(String email, String password) {
-    Optional<User> user = userRepository.findByEmail(email);
-    if (user.isEmpty()) {
-      throw new SignInFailException();
-    }
-    if (!bcryptPasswordEncoder.matches(password, user.get().getPassword())) {
-      throw new SignInFailException();
-    }
+    User user = userRepository.findByEmailAndDeletedAtIsNull(email)
+        .orElseThrow(SignInFailException::new);
 
-    return user.get().getId();
+    if (!bcryptPasswordEncoder.matches(password, user.getPassword())) {
+      throw new SignInFailException();
+    }
+    return user.getId();
   }
-
 }
