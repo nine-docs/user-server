@@ -1,3 +1,13 @@
+# 이미지 빌드 및 실행
+프로젝트 root 위치에서 명령 실행
+```bash
+# 이미지 빌드
+docker build -t (이미지이름) .
+
+# 컨테이너 실행
+docker run --name (원하는 컨테이너 이름) -d -p 80:8080 --env-file (.env 파일 위치) (이미지이름)
+```
+
 # Redis, Mysql 로컬 환경 전용 docker-compose
 
 ## Redis
