@@ -17,3 +17,6 @@ spring:
       host: localhost
       port: 6379
       password: password
+domain:
+  mail:
+    url: "http://15.165.213.49:3000"
