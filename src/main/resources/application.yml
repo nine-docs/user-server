@@ -22,3 +22,5 @@ spring:
     redis:
       host: localhost
       port: 6379
+jwt:
+  access-token-expiration-ms: 21600000    # 6시간
