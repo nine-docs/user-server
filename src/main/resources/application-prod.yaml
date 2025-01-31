@@ -17,3 +17,6 @@ jwt:
 logging:
   level:
     root: WARN
+domain:
+  mail:
+    url: ${EMAIL_URL}
