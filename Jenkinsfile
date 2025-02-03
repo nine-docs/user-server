@@ -63,5 +63,26 @@ pipeline {
                 sh "docker push ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_IMAGE_REPO}:${TAG}"
             }
         }
+        stage('Update Helm values.yaml') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'git-credentials', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                        sh '''
+                        #!/bin/bash
+                        echo "Cloning Helm repository..."
+                        git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/nine-docs/infra-manifest.git
+                        cd infra-manifest/charts/user
+                        echo "Updating values.yaml with tag: ${TAG}"
+                        sed -i "s/tag:.*/tag: ${TAG}/" values.yaml
+                        echo "Committing and pushing changes..."
+                        git config user.name "jenkins-john"
+                        git config user.email "john3210of@gmail.com"
+                        git add values.yaml
+                        git commit -m "Update tag to ${TAG}"
+                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/nine-docs/infra-manifest.git
+                        '''
+                }
+            }
+        }
     }
 }
