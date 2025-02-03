@@ -67,23 +67,37 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'git-credentials', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
-                        sh '''
+                        sh """
                         #!/bin/bash
                         echo "Cloning Helm repository..."
-                        git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/nine-docs/infra-manifest.git
+                        git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/nine-docs/infra-manifest.git || echo "Repo already exists"
                         cd infra-manifest/charts/user
+
+                        echo "Current Directory: $(pwd)"
+                        echo "Contents of values.yaml before update:"
+                        cat values.yaml
+
                         echo "Updating values.yaml with tag: ${TAG}"
                         sed -i "s/tag:.*/tag: ${TAG}/" values.yaml
+
+                        echo "Contents of values.yaml after update:"
+                        cat values.yaml
+
                         echo "Committing and pushing changes..."
                         git config user.name "jenkins-john"
                         git config user.email "john3210of@gmail.com"
                         git add values.yaml
-                        git commit -m "Update tag to ${TAG}"
+                        git commit -m "Update tag to ${TAG}" || echo "No changes to commit"
                         git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/nine-docs/infra-manifest.git
-                        '''
+                        """
                     }
                 }
             }
+        }
+    }
+    post {
+        cleanup {
+            cleanWs() // 워크스페이스 정리
         }
     }
 }
