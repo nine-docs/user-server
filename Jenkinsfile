@@ -81,6 +81,7 @@ pipeline {
                         git commit -m "Update tag to ${TAG}"
                         git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/nine-docs/infra-manifest.git
                         '''
+                    }
                 }
             }
         }
