@@ -89,7 +89,7 @@ pipeline {
                         git add values.yaml
                         git commit -m "Update tag to ${TAG}" || echo "No changes to commit"
                         git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/nine-docs/infra-manifest.git
-                        """
+                        """.stripIndent()
                     }
                 }
             }
