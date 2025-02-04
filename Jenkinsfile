@@ -85,5 +85,10 @@ pipeline {
                 }
             }
         }
+        stage('Clean Up Workspace After Build') {
+            steps {
+                deleteDir() // 작업 공간 정리
+            }
+        }
     }
 }
