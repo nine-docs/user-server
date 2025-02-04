@@ -8,6 +8,11 @@ pipeline {
         disableConcurrentBuilds() // Prevent concurrent builds
     }
     stages {
+        stage('Clean Up Workspace Before Build') {
+            steps {
+                deleteDir() // 작업 공간 정리
+            }
+        }
         stage("Permission") {
             steps {
                 sh "chmod +x ./gradlew"
