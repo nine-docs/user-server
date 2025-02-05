@@ -8,11 +8,6 @@ pipeline {
         disableConcurrentBuilds() // Prevent concurrent builds
     }
     stages {
-        stage('Clean Up Workspace Before Build') {
-            steps {
-                deleteDir() // 작업 공간 정리
-            }
-        }
         stage("Permission") {
             steps {
                 sh "chmod +x ./gradlew"
@@ -28,7 +23,13 @@ pipeline {
         }
         stage("Gradle Test") {
             steps {
-                sh "./gradlew clean test"
+              withCredentials([file(credentialsId: 'user-server-env', variable: 'ENV_FILE')]){
+                sh '''
+                    set +x
+                    . ${ENV_FILE}
+                    ./gradlew test
+                  '''
+              }
             }
             post {
                 success {

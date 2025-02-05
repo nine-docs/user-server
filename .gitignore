@@ -476,3 +476,5 @@ gradle.properties
 .idea
 
 *.avsc
+
+env-var.sh
