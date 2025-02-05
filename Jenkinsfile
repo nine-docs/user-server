@@ -3,14 +3,24 @@ pipeline {
     environment {
         DOCKER_HUB_IMAGE_REPO = "ninedocs-user-server"
         DOCKER_HUB_USERNAME   = "gunwoda"
+        ENV_FILE = credentials('user-env-file')
     }
     options {
         disableConcurrentBuilds() // Prevent concurrent builds
     }
     stages {
-        stage('Clean Up Workspace Before Build') {
+        stage('Load Environment Variables') {
             steps {
-                deleteDir() // 작업 공간 정리
+                script {
+                    // .env 파일의 내용을 읽어 환경변수로 설정
+                    def envVars = readFile("${ENV_FILE}").split("\n")
+                    envVars.each { line ->
+                        if (line && !line.startsWith("#")) { // 주석 제외
+                            def (key, value) = line.tokenize("=")
+                            env."${key.trim()}" = value.trim()
+                        }
+                    }
+                }
             }
         }
         stage("Permission") {
@@ -59,7 +69,17 @@ pipeline {
         stage('Docker Build') {
             steps {
                 // Build docker image with the tag from env.TAG
-                sh "docker build -t ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_IMAGE_REPO}:${env.TAG} ."
+                sh """
+                docker build -t ${DOCKER_HUB_USERNAME}/${DOCKER_HUB_IMAGE_REPO}:${env.TAG} . \
+                --build-arg RDS_URL=${RDS_URL} \
+                --build-arg RDS_USERNAME=${RDS_USERNAME} \
+                --build-arg RDS_PASSWORD=${RDS_PASSWORD} \
+                --build-arg REDIS_HOST=${REDIS_HOST} \
+                --build-arg REDIS_PASSWORD=${REDIS_PASSWORD} \
+                --build-arg JWT_SECRET=${JWT_SECRET} \
+                --build-arg EMAIL_URL=${EMAIL_URL} \
+                --build-arg SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+                """
             }
         }
         stage('Push to Registry') {
