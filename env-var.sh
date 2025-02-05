@@ -1,0 +1,8 @@
+export RDS_URL="jdbc:mysql://ec2-13-209-88-188.ap-northeast-2.compute.amazonaws.com:3306/user?serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&zeroDateTimeBehavior=convertToNull&cacheDefaultTimezone=false"
+export RDS_USERNAME="admin"
+export RDS_PASSWORD="1q2w3e4r"
+export REDIS_HOST="3.35.242.78"
+export REDIS_PASSWORD="1q2w3e4r"
+export JWT_SECRET="secret-64-byte-minimum-secret-key-which-must-be-long-enough-for-hmac"
+export EMAIL_URL="http://15.165.213.49:3000"
+export SPRING_PROFILES_ACTIVE="prod"
