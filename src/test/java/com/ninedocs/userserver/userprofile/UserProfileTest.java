@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import com.ninedocs.userserver.user.application.deleteuser.exception.NullUserException;
-import com.ninedocs.userserver.user.application.userprofile.UserProfileService;
+import com.ninedocs.userserver.user.application.userprofile.UserProfileQueryService;
 import com.ninedocs.userserver.user.application.userprofile.dto.UserProfileResponse;
 import com.ninedocs.userserver.user.persistence.User;
 import com.ninedocs.userserver.user.persistence.UserRepository;
@@ -24,7 +24,7 @@ class UserProfileTest {
   private UserRepository userRepository;
 
   @InjectMocks
-  private UserProfileService userProfileService;
+  private UserProfileQueryService userProfileService;
 
   @Test
   void testUserCheck_UserExists() {
