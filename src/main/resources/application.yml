@@ -12,6 +12,14 @@ spring:
     active: 'prod'
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      # 최대 10개 (default 설정과 같은 값)
+      maximum-pool-size: 10
+      # 최소 idle connection 2개
+      # (default 설정은 10개이므로 많이 줄인 것임)
+      minimum-idle: 2
+      # 300,000ms = 5분 (default 설정은 10분임)
+      idle-timeout: 300000
   jpa:
     properties:
       hibernate:
