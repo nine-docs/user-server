@@ -11,7 +11,7 @@ RUN ./gradlew clean build -x test
 
 # Run stage
 
-FROM kiel0103/ninedocs-jdk-base:v1
+FROM amazoncorretto:17
 
 WORKDIR /app
 
