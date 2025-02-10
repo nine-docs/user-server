@@ -11,7 +11,7 @@ RUN ./gradlew clean build -x test
 
 # Run stage
 
-FROM amazoncorretto:17.0.13-alpine3.20
+FROM amazoncorretto:17
 
 WORKDIR /app
 
