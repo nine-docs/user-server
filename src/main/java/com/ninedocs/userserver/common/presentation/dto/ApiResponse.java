@@ -11,6 +11,10 @@ public class ApiResponse<T> {
   private String errorCode;
   private T data;
 
+  public static <Void> ApiResponse<Void> empty() {
+    return new ApiResponse<>(true, null, null);
+  }
+
   public static <T> ApiResponse<T> success(T data) {
     return new ApiResponse<>(true, null, data);
   }
