@@ -34,9 +34,11 @@ public class User {
   private String email;
 
   @Column(nullable = false)
+  @Setter
   private String password;
 
   @Column(nullable = false)
+  @Setter
   private String nickname;
 
   @Column(nullable = false)

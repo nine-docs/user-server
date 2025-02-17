@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "유저 관리")
 @RestController
 @RequiredArgsConstructor
-public class UserProfileController {
+public class UserProfileQueryController {
 
   private final UserProfileQueryService userProfileQueryService;
   private final UserProfileBulkQueryService userProfileBulkQueryService;
