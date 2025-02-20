@@ -76,7 +76,7 @@ pipeline {
                         sh '''
                         #!/bin/bash
                         echo "Cloning Helm repository..."
-                        git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/nine-docs/infra-manifest.git
+                        git clone --branch eks https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/nine-docs/infra-manifest.git
                         cd infra-manifest/charts/user
                         echo "Updating values.yaml with tag: ${TAG}"
                         sed -i "s/tag:.*/tag: ${TAG}/" values.yaml
@@ -85,7 +85,7 @@ pipeline {
                         git config user.email "john3210of@gmail.com"
                         git add values.yaml
                         git commit -m "Update tag to ${TAG}" || echo "No changes to commit"
-                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/nine-docs/infra-manifest.git
+                        git push origin eks
                         '''
                     }
                 }
