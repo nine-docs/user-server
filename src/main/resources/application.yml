@@ -9,7 +9,7 @@ springdoc:
 
 spring:
   profiles:
-    active: 'prod'
+    active: 'local'
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:

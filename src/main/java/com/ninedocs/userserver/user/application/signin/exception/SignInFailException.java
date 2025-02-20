@@ -6,6 +6,6 @@ public class SignInFailException extends CustomException {
 
   @Override
   public String getErrorCode() {
-    return "LOGIN_FAILED";
+    return "TEST_LOGIN_FAILED";
   }
 }

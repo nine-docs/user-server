@@ -18,4 +18,4 @@ spring:
       password: password
 domain:
   mail:
-    url: "http://15.165.213.49:3000"
+    url: "http://52.78.115.142:3000"
