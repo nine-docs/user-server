@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class EmailVerificationCodeGenerator {
 
   public String generateVerificationCode() {
-    // return String.valueOf((int) (Math.random() * 900000) + 100000); // 6자리 랜덤 숫자
-    return "111111";
+    return String.valueOf((int) (Math.random() * 900000) + 100000); // 6자리 랜덤 숫자
+//    return "111111";
   }
 }
